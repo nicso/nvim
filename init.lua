@@ -1,7 +1,7 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 require("config.nicso")
-require("config.harpoon")
+-- require("config.harpoon")
 -- require("config.godot")
 
 vim.api.nvim_create_autocmd("VimEnter", {
