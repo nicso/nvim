@@ -2,24 +2,25 @@ vim.g.ai_cmp = false
 
 return {
   "Saghen/blink.cmp",
-  event = "InsertEnter", -- ou "VeryLazy" si tu préfères un chargement encore plus tardif
+  event = "InsertEnter",
   config = function()
     require("blink.cmp").setup({})
   end,
   opts = function(_, opts)
-    vim.b.completion = true
-    Snacks.toggle({
-      name = "Completion",
-      get = function()
-        return vim.b.completion
-      end,
-      set = function(state)
-        vim.b.completion = state
-      end,
-    }):map("<leader>uk")
+    -- ✅ Configuration simplifiée et corrigée
+    local completion_enabled = true
+
+    -- Toggle pour la completion
+    vim.keymap.set("n", "<leader>uc", function()
+      completion_enabled = not completion_enabled
+      vim.b.completion = completion_enabled
+      vim.notify("Completion " .. (completion_enabled and "enabled" or "disabled"))
+    end, { desc = "Toggle Completion" })
+
     opts.enabled = function()
-      return vim.b.completion ~= true
+      return vim.b.completion ~= false and completion_enabled
     end
+
     return opts
   end,
 }

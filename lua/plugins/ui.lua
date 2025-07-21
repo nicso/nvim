@@ -31,16 +31,5 @@ and people
   },
   config = function(_, opts)
     require("snacks").setup(opts)
-
-    -- Exécuter <Leader>e à la fin du chargement
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "SnackDashboardReady",
-      callback = function()
-        -- On attend un peu que le dashboard se stabilise
-        vim.schedule(function()
-          vim.cmd([[normal! \<Leader>e]])
-        end)
-      end,
-    })
   end,
 }
