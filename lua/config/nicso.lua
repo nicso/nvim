@@ -4,6 +4,8 @@ local opts = { noremap = true, silent = true }
 -- increment/decrement
 -- keymap.set("n", "<C-w>", "<C-a>", opts)
 -- keymap.set("n", "<C-f>", "<C-x>", opts)
+vim.o.keymodel = "startsel,stopsel"
+keymap.set({ "n", "v", "i" }, "Q", "<cmd>wqa<CR>", { desc = "save all and quit" })
 -- better undo
 keymap.set("n", "U", "<C-r>")
 -- select all
