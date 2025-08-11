@@ -3,6 +3,19 @@ local opts = { noremap = true, silent = true }
 -- vim.g.mapleader = " "
 -- vim.g.maplocalleader = " "
 
+-- mini explorer
+local MiniFiles = require("mini.files")
+MiniFiles.setup({
+  mappings = {
+    go_in = "<CR>",
+    go_in_plus = "<Right>",
+    go_out = "-",
+    go_out_plus = "<Left>",
+  },
+})
+
+vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
+
 ---- Moving lines ----
 -- VISUAL
 vim.keymap.set("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
@@ -86,6 +99,7 @@ vim.keymap.set("n", "<C-M-Right>", "<C-w>3>", { desc = "Resize split right" }) -
 vim.keymap.set("n", "<C-M-Up>", "<C-w>1+", { desc = "Resize split up" }) -- pousse bordure haute
 vim.keymap.set("n", "<C-M-Down>", "<C-w>1-", { desc = "Resize split down" }) -- pousse bordure basse
 
+-- save
 vim.keymap.set("n", "<C-s>", ":w<CR>", { silent = true })
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>", { silent = true })
 

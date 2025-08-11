@@ -1,3 +1,4 @@
+local opts = { noremap = true, silent = true }
 return {
   { "echasnovski/mini.nvim", version = false },
   ---- comments
@@ -36,11 +37,11 @@ return {
           go_out_plus = "<Left>",
         },
       })
-      vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file explorer" })
-      vim.keymap.set("n", "<leader>ef", function()
+      vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
+      vim.keymap.set("n", "<leader>mf", function()
         MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
         MiniFiles.reveal_cwd()
-      end, { desc = "Toggle mini file explorer into current fil into current file" })
+      end, opts)
     end,
   },
 
