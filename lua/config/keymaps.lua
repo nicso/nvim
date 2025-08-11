@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = " "
 
 ---- Moving lines ----
 -- VISUAL
@@ -42,6 +42,12 @@ vim.keymap.set("n", "<Esc>", ":nohl<CR>", { desc = "Clear search hl", silent = t
 -- format document
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+
 vim.keymap.set(
   "n",
   "<leader>rn",
@@ -66,6 +72,19 @@ vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>")
 vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
+vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
+
+-- Resize splits with arrow keys
+-- vim.keymap.set("n", "<C-t-Left>", "<C-w><", { desc = "Shrink vertical split" }) -- diminue largeur
+-- vim.keymap.set("n", "<C-d-Right>", "<C-w>>", { desc = "Grow vertical split" }) -- augmente largeur
+-- vim.keymap.set("n", "<C-M-Up>", "<C-w>+", { desc = "Grow horizontal split" }) -- augmente hauteur
+-- vim.keymap.set("n", "<C-M-Down>", "<C-w>-", { desc = "Shrink horizontal split" }) -- diminue hauteur
+
+-- Resize splits directionally (consistent with arrow direction)
+vim.keymap.set("n", "<C-M-Left>", "<C-w>3<", { desc = "Resize split left" }) -- pousse bordure gauche
+vim.keymap.set("n", "<C-M-Right>", "<C-w>3>", { desc = "Resize split right" }) -- pousse bordure droite
+vim.keymap.set("n", "<C-M-Up>", "<C-w>1+", { desc = "Resize split up" }) -- pousse bordure haute
+vim.keymap.set("n", "<C-M-Down>", "<C-w>1-", { desc = "Resize split down" }) -- pousse bordure basse
 
 vim.keymap.set("n", "<C-s>", ":w<CR>", { silent = true })
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>", { silent = true })
