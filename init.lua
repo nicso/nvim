@@ -3,6 +3,7 @@ require("config.lazy")
 require("config.nicso")
 -- require("config.harpoon")
 -- require("config.godot")
+
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local path = vim.fn.stdpath("data") .. "/shada"

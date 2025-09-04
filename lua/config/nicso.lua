@@ -1,6 +1,7 @@
 vim.g.ai_cmp = false
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+local builtin = require("telescope.builtin")
 -- increment/decrement
 -- keymap.set("n", "<C-w>", "<C-a>", opts)
 -- keymap.set("n", "<C-f>", "<C-x>", opts)
@@ -27,7 +28,7 @@ keymap.set("n", "sd", "<C-w>k", opts)
 
 keymap.set("i", "<C-r>", "<Esc>vbdi", opts)
 
-keymap.set("i", "<C-z>", "<Esc>ui", opts)
+keymap.set({ "i", "n" }, "<C-z>", "<Esc>ui", opts)
 keymap.set("n", "dw", "bdw", opts)
 
 keymap.set("n", "<C-M-r>", "<S-h>", { remap = true })
@@ -35,6 +36,8 @@ keymap.set("n", "<C-M-i>", "<S-l>", { remap = true })
 
 keymap.set({ "n", "i" }, "<A-d>", "<A-k>", { remap = true })
 keymap.set({ "n", "i" }, "<A-t>", "<A-j>", { remap = true })
+
+keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 
 -- copilot
 keymap.set("n", "<leader>cpd", ":Copilot disable<cr>", opts)

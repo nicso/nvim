@@ -9,7 +9,7 @@ return {
           prompt_title = "Find File (Current Directory)",
         })
       end,
-      desc = "Find File (Current Directory fuck)",
+      desc = "Find File (Current Directory)",
     },
   },
 }
