@@ -2,9 +2,17 @@ vim.g.ai_cmp = false
 
 return {
   "Saghen/blink.cmp",
+  enabled = false,
   event = "InsertEnter",
   config = function()
-    require("blink.cmp").setup({})
+    require("blink.cmp").setup({
+      keymap = {
+        preset = "default",
+        ["<Tab>"] = { "accept", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<C-l>"] = { "accept", "fallback" },
+      },
+    })
   end,
   opts = function(_, opts)
     -- ✅ Configuration simplifiée et corrigée

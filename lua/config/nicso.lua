@@ -5,6 +5,7 @@ local opts = { noremap = true, silent = true }
 -- keymap.set("n", "<C-w>", "<C-a>", opts)
 -- keymap.set("n", "<C-f>", "<C-x>", opts)
 vim.o.keymodel = "startsel,stopsel"
+
 -- better undo
 keymap.set("n", "U", "<C-r>")
 -- select all
@@ -29,8 +30,6 @@ keymap.set("i", "<C-r>", "<Esc>vbdi", opts)
 keymap.set("i", "<C-z>", "<Esc>ui", opts)
 keymap.set("n", "dw", "bdw", opts)
 
-keymap.set("n", "<Tab>", "<S-h>", { remap = true })
-keymap.set("n", "<S-Tab>", "<S-l>", { remap = true })
 keymap.set("n", "<C-M-r>", "<S-h>", { remap = true })
 keymap.set("n", "<C-M-i>", "<S-l>", { remap = true })
 
