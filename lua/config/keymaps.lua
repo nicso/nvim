@@ -3,18 +3,20 @@ local opts = { noremap = true, silent = true }
 -- vim.g.mapleader = " "
 -- vim.g.maplocalleader = " "
 
--- mini explorer
-local MiniFiles = require("mini.files")
-MiniFiles.setup({
-  mappings = {
-    go_in = "<CR>",
-    go_in_plus = "<Right>",
-    go_out = "-",
-    go_out_plus = "<Left>",
-  },
-})
+-- mini explorer (disabled in VSCode)
+if not vim.g.vscode then
+  local MiniFiles = require("mini.files")
+  MiniFiles.setup({
+    mappings = {
+      go_in = "<CR>",
+      go_in_plus = "<Right>",
+      go_out = "-",
+      go_out_plus = "<Left>",
+    },
+  })
 
-vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
+  vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
+end
 
 ---- Moving lines ----
 -- VISUAL

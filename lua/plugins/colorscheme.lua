@@ -6,6 +6,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "everforest",
+      transparent = true,
     },
   },
 }
