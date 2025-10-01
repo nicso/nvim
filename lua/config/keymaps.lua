@@ -18,6 +18,10 @@ if not vim.g.vscode then
   vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
 end
 
+---- Home key ----
+vim.keymap.set({ "n", "v" }, "<Home>", "^", opts)
+vim.keymap.set("i", "<Home>", "<C-o>^", opts)
+
 ---- Moving lines ----
 -- VISUAL
 vim.keymap.set("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
@@ -109,6 +113,9 @@ vim.keymap.set("n", "<C-r>", "<C-W>h", { desc = "switch to left window" })
 vim.keymap.set("n", "<C-i>", "<C-W>l", { desc = "switch to right window" })
 vim.keymap.set("n", "<C-d>", "<C-W>k", { desc = "switch to top window" })
 vim.keymap.set("n", "<C-t>", "<C-W>j", { desc = "switch to bottom window" })
+
+-- visual block mode
+vim.keymap.set("n", "<C-b>", "<C-v>", { desc = "Enter visual block mode" })
 
 -- save all and quit
 vim.keymap.set("n", "Q", "<cmd>wqa<CR>", { desc = "save all and quit" })

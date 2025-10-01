@@ -5,7 +5,7 @@ local builtin = require("telescope.builtin")
 -- increment/decrement
 -- keymap.set("n", "<C-w>", "<C-a>", opts)
 -- keymap.set("n", "<C-f>", "<C-x>", opts)
-vim.o.keymodel = "startsel,stopsel"
+vim.o.keymodel = "startsel"
 
 -- better undo
 keymap.set("n", "U", "<C-r>")
