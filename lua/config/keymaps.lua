@@ -18,6 +18,10 @@ if not vim.g.vscode then
   vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
 end
 
+-- switch between openned buffers
+vim.keymap.set("n", "<C-pageup>", "<cmd>bprevious<CR>", opts)
+vim.keymap.set("n", "<C-pagedown>", "<cmd>bnext<CR>", opts)
+
 ---- Home key ----
 vim.keymap.set({ "n", "v" }, "<Home>", "^", opts)
 vim.keymap.set("i", "<Home>", "<C-o>^", opts)
