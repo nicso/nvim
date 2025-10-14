@@ -1,30 +1,22 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+
+local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
--- vim.g.mapleader = " "
--- vim.g.maplocalleader = " "
-
--- mini explorer (disabled in VSCode)
-if not vim.g.vscode then
-  local MiniFiles = require("mini.files")
-  MiniFiles.setup({
-    mappings = {
-      go_in = "<CR>",
-      go_in_plus = "<Right>",
-      go_out = "-",
-      go_out_plus = "<Left>",
-    },
-  })
-
-  vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>", opts)
-end
-
--- switch between openned buffers
-vim.keymap.set("n", "<C-pageup>", "<cmd>bprevious<CR>", opts)
-vim.keymap.set("n", "<C-pagedown>", "<cmd>bnext<CR>", opts)
-
----- Home key ----
+vim.o.keymodel = "startsel"
+-- Home keys --
 vim.keymap.set({ "n", "v" }, "<Home>", "^", opts)
 vim.keymap.set("i", "<Home>", "<C-o>^", opts)
+
+-- Buffer navigation
+vim.keymap.set("n", "<C-PageUp>", "<cmd>bprevious<CR>", { desc = "Previous buffer", silent = true })
+vim.keymap.set("n", "<C-PageDown>", "<cmd>bnext<CR>", { desc = "Next buffer", silent = true })
+vim.keymap.set("n", "<C-q>", "<cmd>Bdelete<CR>", { desc = "Delete current buffer", silent = true })
+-- Alternative buffer navigation (more reliable)
+vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer", silent = true })
 
 ---- Moving lines ----
 -- VISUAL
@@ -53,6 +45,7 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("v", "p", '"_dp', opts)
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
 -- delete without copy
 vim.keymap.set("n", "dd", [["_dd]], opts)
 vim.keymap.set("v", "d", [["_d]], opts)
@@ -70,6 +63,9 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find f
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+vim.keymap.set("n", "<leader>fr", function()
+  builtin.oldfiles({ cwd = vim.fn.getcwd(), cwd_only = true })
+end, { desc = "Telescope recent project files" })
 
 vim.keymap.set(
   "n",
@@ -96,13 +92,6 @@ vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }
 vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
-
--- Resize splits with arrow keys
--- vim.keymap.set("n", "<C-t-Left>", "<C-w><", { desc = "Shrink vertical split" }) -- diminue largeur
--- vim.keymap.set("n", "<C-d-Right>", "<C-w>>", { desc = "Grow vertical split" }) -- augmente largeur
--- vim.keymap.set("n", "<C-M-Up>", "<C-w>+", { desc = "Grow horizontal split" }) -- augmente hauteur
--- vim.keymap.set("n", "<C-M-Down>", "<C-w>-", { desc = "Shrink horizontal split" }) -- diminue hauteur
-
 -- Resize splits directionally (consistent with arrow direction)
 vim.keymap.set("n", "<C-M-Left>", "<C-w>3<", { desc = "Resize split left" }) -- pousse bordure gauche
 vim.keymap.set("n", "<C-M-Right>", "<C-w>3>", { desc = "Resize split right" }) -- pousse bordure droite
@@ -118,8 +107,44 @@ vim.keymap.set("n", "<C-i>", "<C-W>l", { desc = "switch to right window" })
 vim.keymap.set("n", "<C-d>", "<C-W>k", { desc = "switch to top window" })
 vim.keymap.set("n", "<C-t>", "<C-W>j", { desc = "switch to bottom window" })
 
--- visual block mode
-vim.keymap.set("n", "<C-b>", "<C-v>", { desc = "Enter visual block mode" })
-
 -- save all and quit
 vim.keymap.set("n", "Q", "<cmd>wqa<CR>", { desc = "save all and quit" })
+
+-- better undo
+keymap.set("n", "U", "<C-r>")
+-- select all
+keymap.set("n", "<C-a>", "gg<S-v>G")
+
+keymap.set("i", "<C-r>", "<Esc>vbdi", opts)
+
+keymap.set("i", "<C-z>", "<Esc>ui", opts)
+keymap.set("n", "dw", "bdw", opts)
+keymap.set("n", "<Tab>", "<S-h>", { remap = true })
+keymap.set("n", "<S-Tab>", "<S-l>", { remap = true })
+keymap.set("n", "<C-M-r>", "<S-h>", { remap = true })
+keymap.set("n", "<C-M-i>", "<S-l>", { remap = true })
+
+keymap.set({ "n", "i" }, "<A-d>", "<A-k>", { remap = true })
+keymap.set({ "n", "i" }, "<A-t>", "<A-j>", { remap = true })
+
+-- copilot
+keymap.set("n", "<leader>cpd", ":Copilot disable<cr>", opts)
+keymap.set("n", "<leader>cpe", ":Copilot enable<cr>", opts)
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "FileType" }, {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.wrap = true
+    vim.opt.textwidth = 80 -- Limite le texte à 80 colonnes
+    vim.opt.linebreak = true -- Coupe sur les mots, pas au milieu
+    vim.opt.formatoptions:append("t") -- Permet le formatage automatique
+    vim.opt.formatoptions:append("n")
+  end,
+})
+
+vim.keymap.set("n", "<leader>gr", ":GodotRun<CR>", { desc = "Run Godot project" })
