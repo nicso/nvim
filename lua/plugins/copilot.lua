@@ -16,6 +16,17 @@ return {
       vim.keymap.set("i", "<C-t>", "<Plug>(copilot-next)", { desc = "Next Copilot suggestion" })
       vim.keymap.set("i", "<C-d>", "<Plug>(copilot-previous)", { desc = "Previous Copilot suggestion" })
       vim.keymap.set("i", "<C-r>", "<Plug>(copilot-dismiss)", { desc = "Dismiss Copilot suggestion" })
+
+      -- Toggle Copilot suggestions
+      vim.keymap.set("n", "<leader>p", function()
+        if vim.g.copilot_enabled == false then
+          vim.cmd("Copilot enable")
+          vim.notify("Copilot enabled", vim.log.levels.INFO)
+        else
+          vim.cmd("Copilot disable")
+          vim.notify("Copilot disabled", vim.log.levels.INFO)
+        end
+      end, { desc = "Toggle Copilot suggestions" })
     end,
   },
   {

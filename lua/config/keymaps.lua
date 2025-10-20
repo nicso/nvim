@@ -5,6 +5,11 @@
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
+-- Toggle comment with Ctrl+d (using native gcc)
+vim.keymap.set("n", "<C-k>", "gcc", { remap = true, desc = "Toggle comment line" })
+vim.keymap.set("v", "<C-k>", "gc", { remap = true, desc = "Toggle comment selection" })
+vim.keymap.set("i", "<C-d>", "<Esc>gcca", { remap = true, desc = "Toggle comment line (insert mode)" })
+
 vim.o.keymodel = "startsel"
 -- Home keys --
 vim.keymap.set({ "n", "v" }, "<Home>", "^", opts)
@@ -32,8 +37,7 @@ vim.keymap.set("i", "<M-Up>", "<Esc>:m .-2<CR>==gi", { desc = "Move current line
 vim.keymap.set("i", "<M-Down>", "<Esc>:m .+1<CR>==gi", { desc = "Move current line down (insert)" })
 
 ---- quick move ----
-vim.keymap.set("n", "<C-Down>", "<C-d>zz", { desc = "move down in buffer with cursor centered" })
-vim.keymap.set("n", "<C-Up>", "<C-u>zz", { desc = "move up in buffer with cursor centered" })
+-- NOTE: Smooth scroll mappings (Ctrl+Up/Down, Ctrl+u/d) are configured in neoscroll.lua plugin
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -66,6 +70,23 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help ta
 vim.keymap.set("n", "<leader>fr", function()
   builtin.oldfiles({ cwd = vim.fn.getcwd(), cwd_only = true })
 end, { desc = "Telescope recent project files" })
+vim.keymap.set("n", "<leader>fc", function()
+  local current_file = vim.fn.expand("%:p")
+  if current_file == "" then
+    vim.notify("No file opened", vim.log.levels.WARN)
+    return
+  end
+  builtin.live_grep({
+    search_dirs = { current_file },
+    prompt_title = "Live Grep in " .. vim.fn.expand("%:t"),
+  })
+end, { desc = "Live grep in current file" })
+
+-- Quickfix list navigation
+vim.keymap.set("n", "]q", ":cnext<CR>", { desc = "Next quickfix item", silent = true })
+vim.keymap.set("n", "[q", ":cprev<CR>", { desc = "Previous quickfix item", silent = true })
+vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open quickfix list", silent = true })
+vim.keymap.set("n", "<leader>qc", ":cclose<CR>", { desc = "Close quickfix list", silent = true })
 
 vim.keymap.set(
   "n",
@@ -119,8 +140,10 @@ keymap.set("i", "<C-r>", "<Esc>vbdi", opts)
 
 keymap.set("i", "<C-z>", "<Esc>ui", opts)
 keymap.set("n", "dw", "bdw", opts)
-keymap.set("n", "<Tab>", "<S-h>", { remap = true })
-keymap.set("n", "<S-Tab>", "<S-l>", { remap = true })
+
+-- keymap.set("n", "<Tab>", "<S-h>", { remap = true })
+-- keymap.set("n", "<S-Tab>", "<S-l>", { remap = true })
+
 keymap.set("n", "<C-M-r>", "<S-h>", { remap = true })
 keymap.set("n", "<C-M-i>", "<S-l>", { remap = true })
 
@@ -148,3 +171,14 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.keymap.set("n", "<leader>gr", ":GodotRun<CR>", { desc = "Run Godot project" })
+
+-- Jest test keybindings (direct, without neotest)
+vim.keymap.set("n", "<leader>jf", function()
+  local file = vim.fn.expand("%:.") -- Get relative path from cwd
+  local file_normalized = file:gsub("\\", "/") -- Convert backslashes to forward slashes
+  vim.cmd('TermExec cmd="npm test -- ' .. file_normalized .. '"')
+end, { desc = "Run Jest tests for current file" })
+
+vim.keymap.set("n", "<leader>ja", ':TermExec cmd="npm test"<CR>', { desc = "Run all Jest tests" })
+
+vim.keymap.set("n", "<leader>jw", ':TermExec cmd="npm run test:watch"<CR>', { desc = "Run Jest in watch mode" })

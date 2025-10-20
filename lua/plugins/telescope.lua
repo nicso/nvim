@@ -15,6 +15,14 @@ return {
         width = 0.87,
         height = 0.80,
       },
+      file_ignore_patterns = {
+        "node_modules",
+        "node_modules/",
+        ".git/",
+        "dist/",
+        "build/",
+        "%.lock",
+      },
       mappings = {
         n = {
           ["q"] = require("telescope.actions").close,
@@ -30,8 +38,8 @@ return {
         "--smart-case",
         "--hidden",
         "--glob=!.git/",
+        "--glob=!node_modules/",
       },
-      file_ignore_patterns = { "node_modules/", ".git/" },
     },
     extensions_list = { "themes", "terms" },
     extensions = {},

@@ -1,0 +1,23 @@
+return {
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("Comment").setup()
+
+      -- Raccourci Ctrl+k pour toggle commentaire
+      vim.keymap.set("n", "<C-k>", function()
+        require("Comment.api").toggle.linewise.current()
+      end, { desc = "Toggle comment line" })
+
+      vim.keymap.set("v", "<C-k>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", {
+        desc = "Toggle comment selection",
+      })
+    end,
+  },
+}
