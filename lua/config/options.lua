@@ -39,3 +39,6 @@ vim.opt.hlsearch = true
 
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
+
+-- Disable AI completion integration to avoid ghost text conflicts with Copilot
+vim.g.ai_cmp = false

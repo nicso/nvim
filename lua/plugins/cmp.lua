@@ -7,6 +7,12 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
     },
+    opts = function(_, opts)
+      -- Disable ghost text completely
+      opts.experimental = opts.experimental or {}
+      opts.experimental.ghost_text = false
+      return opts
+    end,
     config = function()
       local cmp = require("cmp")
 
@@ -48,9 +54,12 @@ return {
         }, {
           { name = "buffer" },
         }),
-        preselect = "item",
+        preselect = cmp.PreselectMode.None, -- Don't preselect any item
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noselect", -- Changed to noselect
+        },
+        experimental = {
+          ghost_text = false, -- Disable ghost text to avoid conflicts with Copilot
         },
       })
 
