@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Format code**: Use StyLua with `stylua .` (configured in `stylua.toml` with 2-space indentation, 120 column width)
 - **Check syntax**: Use `nvim --headless -c "checkhealth" -c quit` to validate configuration
 - **Test configuration**: Launch nvim and check for any startup errors
+- **Install tree-sitter**: `npm install` (for tree-sitter-cli dependency)
 
 ## Architecture Overview
 
@@ -41,8 +42,9 @@ Plugins are organized in `lua/plugins/` and follow LazyVim's spec format:
 - **terminal.lua**: ToggleTerm with specialized terminals (Maven, Node, GitUI, Bottom) using `<leader>T*` keymaps
 - **autopairs.lua**: Enhanced autopairs with nvim-cmp integration and smart bracket handling
 - **lspsaga.lua**: Beautiful and performant LSP UI with enhanced hover, definition peek, and diagnostics
-- **cmp.lua**: nvim-cmp completion engine with Tab/S-Tab navigation and LSP/buffer sources
+- **blink-cmp.lua**: blink.cmp completion engine (replaces nvim-cmp) with custom Tab confirmation and Enter disabled
 - **ccc.lua**: Advanced color picker and highlighter with support for multiple color formats (RGB, HSL, HEX) and LSP integration
+- **neotest.lua**: Testing framework with Jest adapter for JavaScript/TypeScript projects
 
 ### Language Support
 
@@ -123,6 +125,15 @@ Files in `plugin/after/` run after all plugins load:
 - `<leader>sv/sh/sx/se`: Split vertically/horizontally/close/equalize
 - `Tab/Shift+Tab`: Buffer navigation (alternative)
 
+#### Testing (Neotest)
+- `<leader>tr`: Run nearest test
+- `<leader>tf`: Run current file tests
+- `<leader>tT`: Run all tests
+- `<leader>ta`: Attach to nearest test
+- `<leader>ts`: Toggle test summary
+- `<leader>to`: Open test output
+- `<leader>tw`: Toggle watch mode
+
 ### LSP Enhanced Navigation (via LSPSaga)
 
 - `gh` / `K`: Enhanced hover documentation
@@ -137,11 +148,11 @@ Files in `plugin/after/` run after all plugins load:
 ### AI Integration
 
 - **GitHub Copilot**: Configured with custom keybindings (insert mode)
-  - `Ctrl+e`: Accept suggestion (conflicts with cmp abort, Copilot takes priority)
+  - `Ctrl+e`: Accept Copilot ghost text suggestion (when cmp menu not visible)
   - `Ctrl+t`: Next suggestion (conflicts with window nav, context-dependent)
   - `Ctrl+d`: Previous suggestion (conflicts with window nav, context-dependent)
   - `Ctrl+r`: Dismiss suggestion (conflicts with window nav, context-dependent)
-  - `<leader>cpd/cpe`: Disable/enable Copilot
+  - `<leader>p`: Toggle Copilot enable/disable
 - **CopilotChat**: AI-powered code assistance (visual mode)
   - `<leader>cc`: Toggle Copilot Chat
   - `<leader>ce`: Explain selected code
@@ -160,12 +171,13 @@ Files in `plugin/after/` run after all plugins load:
 - **Emmet LSP**: Web development abbreviations via Language Server
   - Integrated with completion engine (nvim-cmp)
   - Tab completion for Emmet expansions in HTML/JSX/TSX files
-- **Completion (nvim-cmp)**:
-  - `Ctrl+j/k`: Navigate completion items
-  - `Tab/Shift+Tab`: Navigate completion menu
-  - `Enter`: Confirm selection
+- **Completion (blink.cmp)**:
+  - `Ctrl+j/k`: Navigate completion items in dropdown menu
+  - `Shift+Tab`: Navigate to previous completion item (snippet backward)
+  - `Tab`: Confirm selection from dropdown menu (LSP/buffer suggestions)
+  - `Enter`: Normal newline (completion cancelled and fallback to default behavior)
+  - `Ctrl+e`: Close completion menu (when visible), otherwise accepts Copilot
   - `Ctrl+Space`: Trigger completion manually
-  - `Ctrl+u/d`: Scroll documentation (conflicts with window nav when cmp visible)
 
 ### Terminal Integration
 
