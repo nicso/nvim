@@ -1,6 +1,7 @@
 return {
   "karb94/neoscroll.nvim",
   event = "VeryLazy",
+  enable = false,
   opts = {
     mappings = {}, -- Mappings personnalisés définis via keys
     hide_cursor = false,
