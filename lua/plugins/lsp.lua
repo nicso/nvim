@@ -1,5 +1,15 @@
 return {
-  { "neovim/nvim-lspconfig" },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        ts_ls = false,
+        vtsls = {
+          settings = {},
+        },
+      },
+    },
+  },
   {
     "mason-org/mason.nvim",
     opts = {

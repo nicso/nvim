@@ -1,6 +1,7 @@
 return {
   {
     "github/copilot.vim",
+    enabled = false,
     config = function()
       -- Disable default tab mapping to avoid conflicts with completion
       vim.g.copilot_no_tab_map = true
@@ -55,4 +56,3 @@ return {
     end,
   },
 }
-

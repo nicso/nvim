@@ -9,7 +9,7 @@ return {
         -- Cursor path animation - shows path when jumping between lines
         cursor = {
           enable = true,
-          timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
+          timing = animate.gen_timing.linear({ duration = 50, unit = "total" }),
         },
 
         -- Scroll animation - DISABLED (using neoscroll.nvim instead)

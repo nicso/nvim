@@ -4,7 +4,7 @@
 
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
-
+vim.keymap.del("n", "<C-h>")
 -- Toggle comment with Ctrl+d (using native gcc)
 vim.keymap.set("n", "<C-k>", "gcc", { remap = true, desc = "Toggle comment line" })
 vim.keymap.set("v", "<C-k>", "gc", { remap = true, desc = "Toggle comment selection" })
@@ -151,8 +151,9 @@ keymap.set({ "n", "i" }, "<A-d>", "<A-k>", { remap = true })
 keymap.set({ "n", "i" }, "<A-t>", "<A-j>", { remap = true })
 
 -- copilot
-keymap.set("n", "<leader>cpd", ":Copilot disable<cr>", opts)
-keymap.set("n", "<leader>cpe", ":Copilot enable<cr>", opts)
+--keymap.set("n", "<leader>cpd", ":Copilot disable<cr>", opts)
+--keymap.set("n", "<leader>cpe", ":Copilot enable<cr>", opts)
+
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "FileType" }, {
   pattern = "*",
   callback = function()

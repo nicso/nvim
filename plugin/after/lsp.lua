@@ -83,7 +83,7 @@ lspconfig.dartls.setup({
   },
 })
 
-lspconfig.ts_ls.setup({
+lspconfig.vtsls.setup({
   on_attach = function(client)
     vim.opt.tabstop = 2
     vim.opt.shiftwidth = 2
@@ -129,5 +129,43 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "java",
   callback = function(args)
     require("jdtls.jdtls_setup").setup()
+  end,
+})
+
+-- Code actions automatiques à la sauvegarde
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" }, -- Fichiers TypeScript/JavaScript
+  callback = function()
+    -- Organiser les imports
+    vim.lsp.buf.code_action({
+      context = {
+        only = { "source.organizeImports" },
+        diagnostics = {},
+      },
+      apply = true,
+    })
+
+    vim.wait(100)
+
+    vim.lsp.buf.code_action({
+      context = {
+        only = { "source.fixAll.eslint" },
+        diagnostics = {},
+      },
+      apply = true,
+    })
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.css", "*.scss", "*.sass" },
+  callback = function()
+    vim.lsp.buf.code_action({
+      context = {
+        only = { "source.fixAll.stylelint" },
+        diagnostics = {},
+      },
+      apply = true,
+    })
   end,
 })
