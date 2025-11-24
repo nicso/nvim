@@ -52,7 +52,7 @@ function M:setup()
       -- 💀
       "-jar",
       vim.fn.glob(vim.fn.stdpath("data")
-        .. "/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+        .. "/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar", true),
       -- Must point to the                                                     Change this to
       -- eclipse.jdt.ls installation                                           the actual version
 
@@ -89,9 +89,11 @@ function M:setup()
     --
     -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
     init_options = {
-      bundles = {
+      bundles = vim.split(
         vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true),
-      },
+        "\n",
+        { trimempty = true }
+      ),
     },
   }
   -- This starts a new client & server,
