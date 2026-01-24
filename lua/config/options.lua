@@ -1,6 +1,6 @@
 vim.cmd("let g:netrw_banner = 0")
 
-vim.opt.shell = "pwsh"
+-- vim.opt.shell = "pwsh"
 vim.opt.shellcmdflag = "-NoLogo -NoProfiles -ExecutionPolicy RemoteSigned -Command"
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
