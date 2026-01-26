@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//home/nicso/.config/nvim/lua/plugins/**)",
+      "Bash(find:*)",
+      "Bash(nvim:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Read(//c/Users/nicso/AppData/Local/nvim-data/lazy/neotest-jest/lua/neotest-jest/**)",
+      "Read(//c/Users/nicso/AppData/Local/nvim-data/lazy/neotest-jest/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

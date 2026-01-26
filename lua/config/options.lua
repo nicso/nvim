@@ -1,5 +1,10 @@
 vim.cmd("let g:netrw_banner = 0")
 
+-- vim.opt.shell = "pwsh"
+vim.opt.shellcmdflag = "-NoLogo -NoProfiles -ExecutionPolicy RemoteSigned -Command"
+vim.opt.shellquote = ""
+vim.opt.shellxquote = ""
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -34,8 +39,11 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "0"
 
-vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
+vim.opt.clipboard:append("unnamedplus")
 vim.opt.hlsearch = true
 
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
+
+-- Disable AI completion integration to avoid ghost text conflicts with Copilot
+vim.g.ai_cmp = false

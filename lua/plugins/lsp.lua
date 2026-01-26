@@ -1,0 +1,65 @@
+return {
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        ts_ls = false,
+        vtsls = {
+          settings = {},
+        },
+      },
+    },
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    },
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "tailwindcss",
+      },
+      automatic_enable = {
+        exclude = {
+          --needs external plugin
+          "jdtls",
+        },
+      },
+    },
+  },
+  { "Decodetalkers/csharpls-extended-lsp.nvim" },
+  { "mfussenegger/nvim-jdtls" },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {
+      file_types = { "markdown", "copilot-chat" },
+    },
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  {
+    "Tyrannican/warcraft-api.nvim",
+    ft = "lua",
+    opts = {},
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+}
