@@ -1,7 +1,7 @@
 return {
   {
     "github/copilot.vim",
-    enabled = false,
+    enabled = true,
     config = function()
       -- Disable default tab mapping to avoid conflicts with completion
       vim.g.copilot_no_tab_map = true
@@ -20,7 +20,7 @@ return {
 
       -- Toggle Copilot suggestions
       vim.keymap.set("n", "<leader>p", function()
-        if vim.g.copilot_enabled == false then
+        if vim.g.copilot_enabled == 0 then
           vim.cmd("Copilot enable")
           vim.notify("Copilot enabled", vim.log.levels.INFO)
         else
