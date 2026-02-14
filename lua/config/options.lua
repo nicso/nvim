@@ -45,5 +45,15 @@ vim.opt.hlsearch = true
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
 
+-- Cursor appearance per mode
+vim.opt.guicursor = {
+  "n-v-c:block-Cursor", -- block in normal/visual/command
+  "i-ci-ve:ver25-iCursor", -- thin vertical bar (25%) in insert
+  "r-cr:hor20-iCursor", -- horizontal bar in replace
+  "o:hor50", -- half block in operator-pending
+  "a:blinkwait700-blinkoff400-blinkon250", -- blink timing
+}
+
+
 -- Disable AI completion integration to avoid ghost text conflicts with Copilot
 vim.g.ai_cmp = false

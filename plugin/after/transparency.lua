@@ -1,3 +1,7 @@
+-- Cursor colors per mode (requires terminal support, e.g. WezTerm)
+vim.api.nvim_set_hl(0, "Cursor", { fg = "#1e1e2e", bg = "#b4befe" }) -- normal: lavender
+vim.api.nvim_set_hl(0, "iCursor", { fg = "#1e1e2e", bg = "#fcb160" }) -- insert: green
+
 -- transparent background
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
