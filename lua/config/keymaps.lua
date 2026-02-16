@@ -141,8 +141,8 @@ keymap.set("i", "<C-r>", "<Esc>vbdi", opts)
 keymap.set("i", "<C-z>", "<Esc>ui", opts)
 keymap.set("n", "dw", "bdw", opts)
 
--- keymap.set("n", "<Tab>", "<S-h>", { remap = true })
--- keymap.set("n", "<S-Tab>", "<S-l>", { remap = true })
+keymap.set("n", "<Tab>", "<S-h>", { remap = true })
+keymap.set("n", "<S-Tab>", "<S-l>", { remap = true })
 
 keymap.set("n", "<C-M-r>", "<S-h>", { remap = true })
 keymap.set("n", "<C-M-i>", "<S-l>", { remap = true })
